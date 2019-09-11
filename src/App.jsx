@@ -2,24 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //     }
-    // }
-
-    editUserName = newTodo => {
+    editUserName = newUserName => {
         const { editUserName } = this.props;
-        editUserName(newTodo);
+        editUserName(newUserName);
     };
 
     render () {
         return (
             <>
                 <div
-                    onClick={() => this.editUserName('newName')}
+                    onClick={() => this.editUserName(Math.random())}
                 >
-                    {this.props.store.name}
+                    {this.props.store.user.name}
                 </div>
             </>
         )
