@@ -1,14 +1,23 @@
+import noAvatar from '../../../src/no-avatar.png';
+
 const initialState = {
-    name: 'defaultUserName'
+    name: 'defaultUserName',
+    avatar: noAvatar
 };
 
 function user(state = initialState, action) {
     switch (action.type) {
-        case 'EDIT_USER_NAME':
-            const newUserName = action.payload;
+        case 'EDIT_NAME':
+            const newName = action.payload;
             return {
                 ...state,
-                name: newUserName,
+                name: newName,
+            };
+        case 'EDIT_AVATAR':
+            const newAvatar = action.payload;
+            return {
+                ...state,
+                avatar: newAvatar,
             };
         default:
             return state

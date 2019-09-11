@@ -1,0 +1,28 @@
+header {
+    padding: 10px;
+    background-color: lightgrey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info,
+.links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.links {
+    width: 6%;
+}
+
+.user-info {
+    width: 15%;
+}
+
+header img {
+    display: block;
+    height: 70px;
+    width: 70px;
+}

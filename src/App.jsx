@@ -1,38 +1,29 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
+import Header from './Components/Header';
+
+const LoadingHeader = <h5>Loading..</h5>;
+
+const Profile = Loadable({
+    loader: () => import('./Containers/Profile'),
+    loading: () => LoadingHeader
+});
 
 class App extends React.Component {
-    editUserName = newUserName => {
-        const { editUserName } = this.props;
-        editUserName(newUserName);
-    };
-
     render () {
         return (
             <>
-                <div
-                    onClick={() => this.editUserName(Math.random())}
-                >
-                    {this.props.store.user.name}
-                </div>
+                <Header />
+                <Router>
+                    <Switch>
+                        <Route path="/profile" component={Profile} />
+                        {/*<Route path="/feed" component={Feed} />*/}
+                    </Switch>
+                </Router>
             </>
         )
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        store: state
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        editUserName: (newUserName) => dispatch({ type: 'EDIT_USER_NAME', payload: newUserName }),
-    }
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default App;
