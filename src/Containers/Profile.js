@@ -1,8 +1,17 @@
 import React from 'react';
-import { connect } from "react-redux";
-import './styles.css';
+import { connect } from 'react-redux';
+import InputForm from '../Components/InputForm';
 
-class AvatarForm extends React.Component {
+class Profile extends React.Component {
+    editUserName = (e) => {
+        e.preventDefault();
+        const name = e.target[0].value;
+        if (name === '') return;
+        const { editUserName } = this.props;
+        editUserName(name);
+        e.target.reset();
+    };
+
     editUserAvatar = (e) => {
         e.preventDefault();
         const pic = e.target[0].files[0];
@@ -16,10 +25,11 @@ class AvatarForm extends React.Component {
     render () {
         return (
             <>
-                <form onSubmit={this.editUserAvatar}>
-                    <input type="file"/>
-                    <button type="submit">Submit</button>
-                </form>
+                <InputForm onSubmit={this.editUserName} />
+                <InputForm
+                    onSubmit={this.editUserAvatar}
+                    type='file'
+                />
             </>
         )
     }
@@ -33,6 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        editUserName: (newUserName) => dispatch({ type: 'EDIT_NAME', payload: newUserName }),
         editUserAvatar: (newUserAvatar) => dispatch({ type: 'EDIT_AVATAR', payload: newUserAvatar }),
     }
 };
@@ -40,4 +51,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AvatarForm);
+)(Profile);

@@ -1,4 +1,4 @@
-import noAvatar from '../../../src/no-avatar.png';
+import noAvatar from '../../../src/images/no-avatar.png';
 
 const initialState = {
     name: 'defaultUserName',
