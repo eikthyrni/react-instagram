@@ -2,6 +2,7 @@ import React from 'react';
 import Post from './Post';
 import { connect } from 'react-redux';
 import Button from '../Components/Button';
+import { addPost, changeView } from '../actions';
 
 class Feed extends React.Component {
     filterClick = (e) => {
@@ -32,8 +33,8 @@ class Feed extends React.Component {
                     value='grid'
                 />
                 <div className={this.props.store.filters.view}>
-                    { Object.entries(this.props.store.posts).map(([key, value]) =>
-                            <Post key={key} id={key} post={value} />) }
+                    { this.props.store.posts.map(c =>
+                            <Post key={c.id} id={c.id} post={c} />) }
                 </div>
                 <Button
                     onClick={this.addPost}
@@ -53,12 +54,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addPost: () => dispatch({ type: 'ADD_POST' }),
-        changeView: (view) => dispatch({ type: 'CHANGE_VIEW', payload: view }),
+        addPost: () => dispatch(addPost()),
+        changeView: (view) => dispatch(changeView(view)),
     }
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Feed);
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

@@ -1,14 +1,15 @@
+import { ActionTypes } from '../../actions';
+
 const initialState = {
     view: 'list'
 };
 
 function filters(state = initialState, action) {
     switch (action.type) {
-        case 'CHANGE_VIEW':
-            const newView = action.payload;
+        case ActionTypes.CHANGE_VIEW:
             return {
                 ...state,
-                view: newView,
+                view: action.payload,
             };
         default:
             return state

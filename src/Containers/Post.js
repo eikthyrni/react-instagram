@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InputForm from '../Components/InputForm';
 import Button from '../Components/Button';
+import { incrementLikes, addComment } from '../actions';
 
 class Post extends React.Component {
     incrementLikes = (e) => {
@@ -24,8 +25,8 @@ class Post extends React.Component {
         const post = this.props.post,
             Pic = () => <img src={ post.pic } />,
             LikesCount = () => post.likes,
-            CommentsList = () => Object.entries(post.comments).map(([key, text]) =>
-                <li key={key}>{text}</li>);
+            CommentsList = () => post.comments.map(c =>
+                <li key={c.id}>{c.text}</li>);
         return (
             <div className='post'>
                 <Pic />
@@ -49,12 +50,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        incrementLikes: (postID) => dispatch({ type: 'INCREMENT_LIKES', payload: postID }),
-        addComment: (TEST) => dispatch({ type: 'ADD_COMMENT', payload: TEST }),
+        incrementLikes: (postID) => dispatch(incrementLikes(postID)),
+        addComment: (TEST) => dispatch(addComment(TEST)),
     }
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

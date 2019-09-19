@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InputForm from '../Components/InputForm';
+import { editUserName, editUserAvatar } from '../actions';
 
 class Profile extends React.Component {
     editUserName = (e) => {
@@ -43,12 +44,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        editUserName: (newUserName) => dispatch({ type: 'EDIT_NAME', payload: newUserName }),
-        editUserAvatar: (newUserAvatar) => dispatch({ type: 'EDIT_AVATAR', payload: newUserAvatar }),
+        editUserName: (name) => dispatch(editUserName(name)),
+        editUserAvatar: (avatar) => dispatch(editUserAvatar(avatar)),
     }
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

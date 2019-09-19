@@ -1,65 +1,70 @@
-import cat1 from '../../../src/images/pic1.png';
-import cat2 from '../../../src/images/pic2.png';
-import cat3 from '../../../src/images/pic3.jpg';
-import noPic from '../../../src/images/no-avatar.png';
+import { cat1, cat2, cat3, noPic } from '../../constants';
+import { ActionTypes } from '../../actions';
 
-const initialState = {
-    0: {
+const initialState = [
+    {
+        id: 0,
         pic: cat1,
         likes: 5,
-        comments: {
-            0: 'ъеъе',
-            1: 'бууъъъ'
-        }
+        comments: [
+            {
+                id: 0,
+                text: 'ъеъе'
+            },
+            {
+                id: 1,
+                text:'бууъъъ'
+            }
+        ]
     },
-    1: {
+    {
+        id: 1,
         pic: cat2,
         likes: 153,
         comments: []
     },
-    2: {
+    {
+        id: 2,
         pic: cat3,
         likes: 12,
         comments: []
     }
-};
+];
 
-function getLastRecordID(object) {
-    return Object.keys(object).slice(-1)[0];
+function getLastRecordID(array) {
+    return array.length ? array[array.length-1].id : 0;
 }
 
 function posts(state = initialState, action) {
     switch (action.type) {
-        case 'ADD_POST':
+        case ActionTypes.ADD_POST:
             const lastPostID = getLastRecordID(state);
-            return {
+
+            return [
                 ...state,
-                [lastPostID + 1]: {
+                {
+                    id: lastPostID + 1,
                     pic: noPic,
                     likes: 0,
                     comments: []
                 }
-            };
-        case 'INCREMENT_LIKES':
-            return {
-                ...state,
-                [action.payload]: {
-                    ...state[action.payload],
-                    likes: state[action.payload].likes + 1
+            ];
+        case ActionTypes.INC_LIKES:
+            state.filter((item, index) => {
+                if (index === action.payload) {
+                    item.likes++;
                 }
-            };
-        case 'ADD_COMMENT':
-            const lastCommentID = getLastRecordID(state[action.payload.id].comments);
-            return {
-                ...state,
-                [action.payload.id]: {
-                    ...state[action.payload.id],
-                    comments: {
-                        ...state[action.payload.id].comments,
-                        [lastCommentID + 1]: action.payload.text
-                    }
-                }
-            };
+            });
+            return [...state];
+        case ActionTypes.ADD_COMMENT:
+            const post = state.filter((item, index) => index === action.payload.id),
+                  lastCommentID = getLastRecordID(post[0].comments);
+
+            post[0].comments.push({
+                id: lastCommentID + 1,
+                text: action.payload.text
+            });
+            return [...state];
         default:
             return state
     }

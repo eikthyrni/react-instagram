@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
     render () {
-        const storeUser = this.props.store.user;
+        const user = this.props.store.user;
         return (
             <header>
                 <div className='links'>
@@ -11,8 +11,8 @@ class Header extends React.Component {
                     <a href='/profile'>Profile</a>
                 </div>
                 <div className='user-info'>
-                    <div>{ storeUser.name }</div>
-                    <img src={ storeUser.avatar } />
+                    <div>{user.name}</div>
+                    <img src={user.avatar} />
                 </div>
             </header>
         )
@@ -25,6 +25,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(
-    mapStateToProps,
-)(Header);
+export default connect(mapStateToProps)(Header);
