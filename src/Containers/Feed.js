@@ -1,12 +1,11 @@
 import React from 'react';
-import Post from './Post';
 import { connect } from 'react-redux';
 import Button from '../Components/Button';
 import { addPost, changeView } from '../actions';
+import PostsList from './PostsList';
 
 class Feed extends React.Component {
     filterClick = (e) => {
-        e.preventDefault();
         const view = e.target.value;
         if (view === this.props.store.filters.view) return;
         const { changeView } = this.props;
@@ -20,6 +19,7 @@ class Feed extends React.Component {
     };
 
     render () {
+        const { filters, posts } = this.props.store;
         return (
             <>
                 <Button
@@ -32,8 +32,8 @@ class Feed extends React.Component {
                     text='Grid'
                     value='grid'
                 />
-                <div className={this.props.store.filters.view}>
-                    {this.props.store.posts.map(c => <Post key={c.id} post={c} />)}
+                <div className={filters.view}>
+                    <PostsList posts={posts} />
                 </div>
                 <Button
                     onClick={this.addPost}

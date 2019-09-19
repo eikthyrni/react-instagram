@@ -2,9 +2,10 @@ import React from 'react';
 
 class InputForm extends React.Component {
     render () {
+        const { onSubmit, type } = this.props;
         return (
-            <form onSubmit={this.props.onSubmit}>
-                <input type={this.props.type || 'text'} />
+            <form onSubmit={onSubmit}>
+                <input type={type || 'text'} />
                 <button type='submit'> Submit </button>
             </form>
         )

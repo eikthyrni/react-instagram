@@ -20,8 +20,8 @@ class App extends React.Component {
     render () {
         return (
             <>
-                <Header />
                 <Router>
+                    <Header />
                     <Switch>
                         <Route path="/profile" component={Profile} />
                         <Route path="/feed" component={Feed} />

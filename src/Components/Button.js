@@ -2,12 +2,13 @@ import React from 'react';
 
 class Button extends React.Component {
     render () {
+        const { value, onClick, className, text } = this.props;
         return (
             <button
-                onClick={this.props.onClick}
-                value={this.props.value}
-                className={this.props.className}
-            > { this.props.text } </button>
+                onClick={onClick}
+                value={value}
+                className={className}
+            >{text}</button>
         )
     }
 }
