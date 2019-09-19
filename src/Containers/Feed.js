@@ -5,11 +5,14 @@ import { addPost, changeView } from '../actions';
 import PostsList from './PostsList';
 
 class Feed extends React.Component {
-    filterClick = (e) => {
-        const view = e.target.value;
-        if (view === this.props.store.filters.view) return;
+    listViewClick = () => {
         const { changeView } = this.props;
-        changeView(view);
+        changeView('list');
+    };
+
+    gridViewClick = () => {
+        const { changeView } = this.props;
+        changeView('grid');
     };
 
     addPost = (e) => {
@@ -23,14 +26,12 @@ class Feed extends React.Component {
         return (
             <>
                 <Button
-                    onClick={this.filterClick}
+                    onClick={this.listViewClick}
                     text='List'
-                    value='list'
                 />
                 <Button
-                    onClick={this.filterClick}
+                    onClick={this.gridViewClick}
                     text='Grid'
-                    value='grid'
                 />
                 <div className={filters.view}>
                     <PostsList posts={posts} />
