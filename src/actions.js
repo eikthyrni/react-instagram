@@ -11,8 +11,8 @@ export function incrementLikes(postID) {
     return { type: ActionTypes.INC_LIKES, payload: postID }
 }
 
-export function addComment(TEST) {
-    return { type: ActionTypes.ADD_COMMENT, payload: TEST }
+export function addComment(postID, text) {
+    return { type: ActionTypes.ADD_COMMENT, payload: { postID: postID, text: text } }
 }
 
 export function addPost() {

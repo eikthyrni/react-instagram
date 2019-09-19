@@ -8,7 +8,7 @@ class Post extends React.Component {
     incrementLikes = (e) => {
         e.preventDefault();
         const { incrementLikes } = this.props;
-        incrementLikes(this.props.id);
+        incrementLikes(this.props.post.id);
     };
 
     addComment = (e) => {
@@ -16,17 +16,16 @@ class Post extends React.Component {
         const text = e.target[0].value;
         if (text === '') return;
         const { addComment } = this.props;
-        const TEST = { id: this.props.id, text: text};
-        addComment(TEST);
+        addComment(this.props.post.id, text);
         e.target.reset();
     };
 
     render () {
         const post = this.props.post,
-            Pic = () => <img src={ post.pic } />,
-            LikesCount = () => post.likes,
-            CommentsList = () => post.comments.map(c =>
-                <li key={c.id}>{c.text}</li>);
+              Pic = () => <img src={post.pic} />,
+              LikesCount = () => post.likes,
+              CommentsList = () => post.comments.map(c => <li key={c.id}>{c.text}</li>);
+
         return (
             <div className='post'>
                 <Pic />
@@ -51,7 +50,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         incrementLikes: (postID) => dispatch(incrementLikes(postID)),
-        addComment: (TEST) => dispatch(addComment(TEST)),
+        addComment: (postID, text) => dispatch(addComment(postID, text)),
     }
 };
 

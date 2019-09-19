@@ -57,12 +57,15 @@ function posts(state = initialState, action) {
             });
             return [...state];
         case ActionTypes.ADD_COMMENT:
-            const post = state.filter((item, index) => index === action.payload.id),
-                  lastCommentID = getLastRecordID(post[0].comments);
+            state.filter((item, index) => {
+                if (index === action.payload.postID) {
+                    const lastCommentID = getLastRecordID(item.comments);
 
-            post[0].comments.push({
-                id: lastCommentID + 1,
-                text: action.payload.text
+                    item.comments.push({
+                        id: lastCommentID + 1,
+                        text: action.payload.text
+                    })
+                }
             });
             return [...state];
         default:

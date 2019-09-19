@@ -33,8 +33,7 @@ class Feed extends React.Component {
                     value='grid'
                 />
                 <div className={this.props.store.filters.view}>
-                    { this.props.store.posts.map(c =>
-                            <Post key={c.id} id={c.id} post={c} />) }
+                    {this.props.store.posts.map(c => <Post key={c.id} post={c} />)}
                 </div>
                 <Button
                     onClick={this.addPost}
