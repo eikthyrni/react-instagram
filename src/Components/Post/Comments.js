@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InputForm from '../InputForm';
 import { addComment } from '../../actions';
+import CommentsList from './CommentsList';
 
 class Comments extends React.Component {
     addComment = (e) => {
@@ -14,11 +15,11 @@ class Comments extends React.Component {
     };
 
     render () {
-        const { post } = this.props,
-            CommentsList = () => post.comments.map(c => <li key={c.id}>{c.text}</li>);
+        const { post } = this.props;
+
         return (
             <>
-                <ul>{<CommentsList />}</ul>
+                <CommentsList comments={post.comments} />
                 <InputForm onSubmit={this.addComment} />
             </>
         )

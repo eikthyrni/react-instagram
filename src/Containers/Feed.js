@@ -5,12 +5,12 @@ import { addPost, changeView } from '../actions';
 import PostsList from './PostsList';
 
 class Feed extends React.Component {
-    listViewClick = () => {
+    setListView = () => {
         const { changeView } = this.props;
         changeView('list');
     };
 
-    gridViewClick = () => {
+    setGridView = () => {
         const { changeView } = this.props;
         changeView('grid');
     };
@@ -26,11 +26,11 @@ class Feed extends React.Component {
         return (
             <>
                 <Button
-                    onClick={this.listViewClick}
+                    onClick={this.setListView}
                     text='List'
                 />
                 <Button
-                    onClick={this.gridViewClick}
+                    onClick={this.setGridView}
                     text='Grid'
                 />
                 <div className={filters.view}>

@@ -19,15 +19,13 @@ const Feed = Loadable({
 class App extends React.Component {
     render () {
         return (
-            <>
-                <Router>
-                    <Header />
-                    <Switch>
-                        <Route path="/profile" component={Profile} />
-                        <Route path="/feed" component={Feed} />
-                    </Switch>
-                </Router>
-            </>
+            <Router>
+                <Header />
+                <Switch>
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/feed" component={Feed} />
+                </Switch>
+            </Router>
         )
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '../Button';
+import LikesCounter from './LikesCounter';
 import { incrementLikes } from '../../actions';
 
 class Likes extends React.Component {
@@ -11,12 +12,11 @@ class Likes extends React.Component {
     };
 
     render () {
-        const { post } = this.props,
-            LikesCount = () => post.likes;
+        const { post } = this.props;
 
         return (
             <>
-                <LikesCount />
+                <LikesCounter likes={post.likes} />
                 <Button
                     onClick={this.incrementLikes}
                     text='♥'
