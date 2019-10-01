@@ -19,7 +19,7 @@ class Comments extends React.Component {
 
         return (
             <>
-                <CommentsList comments={post.comments} />
+                <CommentsList comments={[...post.comments]} />
                 <InputForm onSubmit={this.addComment} />
             </>
         )
