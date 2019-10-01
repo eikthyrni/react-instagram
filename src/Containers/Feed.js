@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '../Components/Button';
-import { addPost, changeView } from '../actions';
-import PostsList from './PostsList';
+import {addComment, addPost, changeView, incrementLikes} from '../actions';
+import Post from "./Post";
 
-class Feed extends React.Component {
+class Feed extends React.PureComponent {
     setListView = () => {
         const { changeView } = this.props;
         changeView('list');
@@ -21,8 +21,18 @@ class Feed extends React.Component {
         addPost();
     };
 
+    incrementLikes = (postID) => {
+        const { incrementLikes } = this.props;
+        incrementLikes(postID);
+    };
+
+    addComment = (postID, text) => {
+        const { addComment } = this.props;
+        addComment(postID, text);
+    };
+
     render () {
-        const { filters, posts } = this.props.store;
+        const { filters, posts } = this.props;
         return (
             <>
                 <Button
@@ -34,7 +44,15 @@ class Feed extends React.Component {
                     text='Grid'
                 />
                 <div className={filters.view}>
-                    <PostsList posts={posts} />
+                    {posts.map(p =>
+                        <Post
+                            key={p.id}
+                            post={p}
+                            likes={p.likes}
+                            likesIncCallback={this.incrementLikes}
+                            comments={p.comments}
+                            addCommentCallback={this.addComment}
+                        />)}
                 </div>
                 <Button
                     onClick={this.addPost}
@@ -48,7 +66,8 @@ class Feed extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        store: state
+        posts: state.posts,
+        filters: state.filters
     }
 };
 
@@ -56,6 +75,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addPost: () => dispatch(addPost()),
         changeView: (view) => dispatch(changeView(view)),
+        incrementLikes: (postID) => dispatch(incrementLikes(postID)),
+        addComment: (postID, text) => dispatch(addComment(postID, text)),
     }
 };
 

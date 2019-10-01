@@ -50,14 +50,14 @@ function posts(state = initialState, action) {
                 }
             ];
         case ActionTypes.INC_LIKES:
-            state.filter((item, index) => {
+            state.forEach((item, index) => {
                 if (index === action.payload) {
                     item.likes++;
                 }
             });
             return [...state];
         case ActionTypes.ADD_COMMENT:
-            state.filter((item, index) => {
+            state.forEach((item, index) => {
                 if (index === action.payload.postID) {
                     const lastCommentID = getLastRecordID(item.comments);
 
