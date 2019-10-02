@@ -1,8 +1,6 @@
 import React from 'react';
 
-const InputForm = (props) => {
-    const { onSubmit, type } = props;
-
+const InputForm = ({ onSubmit, type }) => {
     return (
         <form onSubmit={onSubmit}>
             <input type={type || 'text'} />

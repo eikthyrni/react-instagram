@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Button from '../Components/Button';
 import Actions from '../actions';
@@ -6,6 +6,15 @@ import Post from "./Post";
 
 const Feed = () => {
     const dispatch = useDispatch();
+
+    const handleLikesIncrement = useCallback((postID) => {
+        dispatch(Actions.incrementLikes(postID))
+    }, []);
+
+    const handleNewComment = useCallback((postID, text) => {
+        dispatch(Actions.addComment(postID, text))
+    }, []);
+
     const { filters, posts } = useSelector((state) => state);
 
     return (
@@ -24,9 +33,9 @@ const Feed = () => {
                         key={p.id}
                         post={p}
                         likes={p.likes}
-                        likesIncCallback={(postID) => dispatch(Actions.incrementLikes(postID))}
+                        likesIncCallback={handleLikesIncrement}
                         comments={p.comments}
-                        addCommentCallback={(postID, text) => dispatch(Actions.addComment(postID, text))}
+                        addCommentCallback={handleNewComment}
                     />)}
             </div>
             <Button
@@ -38,4 +47,4 @@ const Feed = () => {
     )
 };
 
-export default memo(Feed);
+export default Feed;

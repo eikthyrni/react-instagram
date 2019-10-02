@@ -61,10 +61,12 @@ function posts(state = initialState, action) {
                 if (index === action.payload.postID) {
                     const lastCommentID = getLastRecordID(item.comments);
 
-                    item.comments.push({
-                        id: lastCommentID + 1,
-                        text: action.payload.text
-                    })
+                    item.comments = [
+                        ...item.comments,
+                        {
+                            id: lastCommentID + 1,
+                            text: action.payload.text
+                        }]
                 }
             });
             return [...state];
