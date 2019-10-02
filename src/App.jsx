@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import Loadable from 'react-loadable';
 import Header from './Components/Header';
 import './App.css';
@@ -16,18 +16,20 @@ const Feed = Loadable({
     loading: () => LoadingHeader
 });
 
-class App extends React.Component {
-    render () {
-        return (
+const App = () => {
+    return (
+        <>
+            <Header />
             <Router>
-                <Header />
+                <Link to="/profile">Profile</Link>
+                <Link to="/feed">Feed</Link>
                 <Switch>
                     <Route path="/profile" component={Profile} />
                     <Route path="/feed" component={Feed} />
                 </Switch>
             </Router>
-        )
-    }
-}
+        </>
+    )
+};
 
 export default App;

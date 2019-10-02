@@ -7,26 +7,28 @@ export const ActionTypes = {
     EDIT_AVATAR: 'EDIT_AVATAR'
 };
 
-export function incrementLikes(postID) {
-    return { type: ActionTypes.INC_LIKES, payload: postID }
-}
+export default {
+    editUserName: (name) => {
+        return { type: ActionTypes.EDIT_NAME, payload: name }
+    },
 
-export function addComment(postID, text) {
-    return { type: ActionTypes.ADD_COMMENT, payload: { postID: postID, text: text } }
-}
+    editUserAvatar: (avatar) => {
+        return { type: ActionTypes.EDIT_AVATAR, payload: avatar }
+    },
 
-export function addPost() {
-    return { type: ActionTypes.ADD_POST }
-}
+    changeView: (view) => {
+        return { type: ActionTypes.CHANGE_VIEW, payload: view }
+    },
 
-export function changeView(view) {
-    return { type: ActionTypes.CHANGE_VIEW, payload: view }
-}
+    addPost: () => {
+        return { type: ActionTypes.ADD_POST }
+    },
 
-export function editUserName(name) {
-    return { type: ActionTypes.EDIT_NAME, payload: name }
-}
+    incrementLikes: (postID) => {
+        return { type: ActionTypes.INC_LIKES, payload: postID }
+    },
 
-export function editUserAvatar(avatar) {
-    return { type: ActionTypes.EDIT_AVATAR, payload: avatar }
+    addComment: (postID, text) => {
+        return { type: ActionTypes.ADD_COMMENT, payload: { postID: postID, text: text } }
+    }
 }

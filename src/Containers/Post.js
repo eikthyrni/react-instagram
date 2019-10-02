@@ -1,41 +1,33 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Button from "../Components/Button";
 import InputForm from "../Components/InputForm";
 
-class Post extends React.PureComponent {
-    newComment = (e) => {
-        const { post, addCommentCallback } = this.props;
+const Post = memo(({ post, comments, addCommentCallback, likes, likesIncCallback }) => {
+    const newComment = (e) => {
         e.preventDefault();
         const text = e.target[0].value;
-        if (text === '') return;
-        addCommentCallback(post.id, text);
-        e.target.reset();
+
+        if (text) {
+            addCommentCallback(post.id, text);
+            e.target.reset();
+        }
     };
 
-    render () {
-        const {
-            post,
-            likesIncCallback,
-            comments,
-            likes
-        } = this.props;
+    console.log('render post', post.id);
 
-        console.log('render post', post.id);
+    return (
+        <div className='post'>
+            <img src={post.pic} alt='' />
+            {likes}
+            <Button
+                onClick={() => likesIncCallback(post.id)}
+                text='♥'
+            />
 
-        return (
-            <div className='post'>
-                <img src={post.pic} alt='' />
-                {likes}
-                <Button
-                    onClick={() => likesIncCallback(post.id)}
-                    text='♥'
-                />
+            <ul>{comments.map(c => <li key={c.id}>{c.text}</li>)}</ul>
+            <InputForm onSubmit={newComment} />
+        </div>
+    )
+});
 
-                <ul>{comments.map(c => <li key={c.id}>{c.text}</li>)}</ul>
-                <InputForm onSubmit={this.newComment} />
-            </div>
-        )
-    }
-}
-
-export default Post;
+export default (Post);

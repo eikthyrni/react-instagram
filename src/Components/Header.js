@@ -1,29 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Link} from 'react-router-dom';
+import { useSelector} from 'react-redux';
 
-class Header extends React.Component {
-    render () {
-        const { user } = this.props.store;
-        return (
-            <header>
-                <div className='links'>
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/feed">Feed</Link>
-                </div>
-                <div className='user-info'>
-                    <div>{user.name}</div>
-                    <img src={user.avatar} />
-                </div>
-            </header>
-        )
-    }
-}
+const Header = () => {
+    const { name, avatar } = useSelector((state) => state.user);
 
-const mapStateToProps = state => {
-    return {
-        store: state
-    }
+    return (
+        <header>
+            <div className='user-info'>
+                <div>{name}</div>
+                <img src={avatar} />
+            </div>
+        </header>
+    )
 };
 
-export default connect(mapStateToProps)(Header);
+export default Header;
